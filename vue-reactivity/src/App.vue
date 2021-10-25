@@ -8,7 +8,14 @@
       <div class="view accessories-view">accessories</div>
     </div>
     <div class="clothes-view">
-      <div class="category coat">Coat</div>
+      <div class="category coat">
+        <p>Coat</p>
+        <ul>
+          <li v-for="coat in coats" :key="coat.coatName" >
+           
+            <img :src="coat.coatImage" alt=""></li>
+        </ul>
+      </div>
       <div class="category tops">Tops</div>
       <div class="category bottoms">Bottoms</div>
       <div class="category shoes">Shoes</div>
@@ -25,7 +32,17 @@ export default {
   name: 'App',
   data () {
     return {
-      // coats: [coat1, coat2, coat3],
+      coats: [{
+        coatName: 'coat1',
+        coatImage:'https://www.vuemastery.com/images/challenges/vmSocks-green-onWhite.jpg'
+      },
+       {
+        coatName: 'coat2',
+        coatImage:'https://www.vuemastery.com/images/challenges/vmSocks-green-onWhite.jpg',
+      }, {
+        coatName: 'coat3',
+        coatImage: 'https://www.vuemastery.com/images/challenges/vmSocks-green-onWhite.jpg',
+      }],
     }
   }
   /* components: {
@@ -35,11 +52,17 @@ export default {
 </script>
 
 <style lang="scss">
+img {
+  height: 3rem;
+}
 .outfit-view {
   display: flex;
   flex-direction: column;
   width: 65%;
+  height: 80vh;
+  flex-wrap: wrap;
   background-color: bisque;
+  
 }
 .view {
   display: flex;
@@ -53,6 +76,7 @@ export default {
   text-align: center;
 
 }
+
 
 .clothes-view {
   display: flex;
