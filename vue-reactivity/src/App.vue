@@ -1,17 +1,19 @@
 <template>
   <div id="app">
     <div class="outfit-view">
-      <div class="view coat-view">coat</div>
+      <div class="view coat-view">
+        <img :src="image" :alt="coatName">
+      </div>
       <div class="view tops-view">tops</div>
       <div class="view bottoms-view">bottoms</div>
       <div class="view shoes-view">shoes</div>
       <div class="view accessories-view">accessories</div>
     </div>
     <div class="clothes-view">
-      <div class="category coat">
+      <div  class="category coat">
         <p>Coat</p>
         <ul>
-          <li v-for="coat in coats" :key="coat.coatName" >
+          <li @click="display(coat.coatImage)" v-for="coat in coats" :key="coat.coatName" >
            
             <img :src="coat.coatImage" alt=""></li>
         </ul>
@@ -32,18 +34,28 @@ export default {
   name: 'App',
   data () {
     return {
+      image: ``,
       coats: [{
         coatName: 'coat1',
         coatImage:'https://www.vuemastery.com/images/challenges/vmSocks-green-onWhite.jpg'
       },
        {
         coatName: 'coat2',
-        coatImage:'https://www.vuemastery.com/images/challenges/vmSocks-green-onWhite.jpg',
+        coatImage:'https://www.vuemastery.com/images/challenges/vmSocks-blue-onWhite.jpg',
       }, {
         coatName: 'coat3',
         coatImage: 'https://www.vuemastery.com/images/challenges/vmSocks-green-onWhite.jpg',
       }],
     }
+  },
+  methods: {
+    hide : function () {
+      document.querySelector('.clothes-view').innerHTML = ``
+    },
+    display(coatImage) {
+      this.image= coatImage
+    }
+
   }
   /* components: {
     HelloWorld
@@ -52,6 +64,13 @@ export default {
 </script>
 
 <style lang="scss">
+
+ul {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+}
+
 img {
   height: 3rem;
 }
