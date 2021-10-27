@@ -2,6 +2,7 @@
   <div id="app">
     <div class="outfit-view">
       <div class="view coat-view">
+        coats
         <img :src="image" :alt="coatName">
       </div>
       <div class="view tops-view">tops</div>
@@ -10,15 +11,22 @@
       <div class="view accessories-view">accessories</div>
     </div>
     <div class="clothes-view">
-      <div  class="category coat">
-        <p>Coat</p>
-        <ul>
-          <li @click="display(coat.coatImage)" v-for="coat in coats" :key="coat.coatName" >
+      <div @click="showClothes" class="category coat">
+        <p >Coat</p>
+        <ul >
+          <li v-show="show" @click="display(coat.coatImage)" v-for="coat in coats" :key="coat.coatName" >
            
             <img :src="coat.coatImage" alt=""></li>
         </ul>
       </div>
-      <div class="category tops">Tops</div>
+      <div @click="showClothes" class="category tops">
+        <p>Tops</p>
+        <ul>
+          <li v-show="show" @click="display(coat.coatImage)"  v-for="coat in coats" :key="coat.coatName" >
+            <img :src="coat.coatImage" alt="">
+          </li>
+        </ul>
+      </div>
       <div class="category bottoms">Bottoms</div>
       <div class="category shoes">Shoes</div>
       <div class="category accessories">Accessories</div>
@@ -34,6 +42,7 @@ export default {
   name: 'App',
   data () {
     return {
+      show: null,
       image: ``,
       coats: [{
         coatName: 'coat1',
@@ -49,8 +58,11 @@ export default {
     }
   },
   methods: {
-    hide : function () {
-      document.querySelector('.clothes-view').innerHTML = ``
+    hideClothes : function () {
+      this.show = false
+    },
+    showClothes: function () {
+      this.show = true
     },
     display(coatImage) {
       this.image= coatImage
@@ -64,7 +76,9 @@ export default {
 </script>
 
 <style lang="scss">
-
+.hide {
+  display: none;
+}
 ul {
   list-style: none;
   margin: 0 auto;
@@ -104,7 +118,7 @@ img {
   background-color: lavender;
 }
 .category {
-  display: flex;
+  // display: flex;
   background-color: lightblue;
   width: 40%;
   padding: .5rem 0rem;
