@@ -11,7 +11,7 @@
       <div class="view accessories-view">accessories</div>
     </div>
     <div class="clothes-view">
-      <div @click="showClothes" class="category coat">
+      <div @click="displayTest(coats)" class="category coat">
         <p >Coat</p>
         <ul >
           <li v-show="show" @click="display(coat.coatImage)" v-for="coat in coats" :key="coat.coatName" >
@@ -42,9 +42,15 @@ export default {
   name: 'App',
   data () {
     return {
-      show: null,
+      show: true, 
+      dTest: {
+        coatsDisplay: null,
+        topsDisplay: null,
+      } ,
       image: ``,
-      coats: [{
+      coats:
+       [{display:false},
+       {
         coatName: 'coat1',
         coatImage:'https://www.vuemastery.com/images/challenges/vmSocks-green-onWhite.jpg'
       },
@@ -64,6 +70,11 @@ export default {
     showClothes: function () {
       this.show = true
     },
+    displayTest(clothes) {
+      this.show = clothes.display
+    },
+    // this doesnt work lmao
+    // it does the opposite
     display(coatImage) {
       this.image= coatImage
     }
