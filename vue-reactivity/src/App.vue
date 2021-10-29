@@ -11,11 +11,11 @@
       <div class="view accessories-view">accessories</div>
     </div>
     <div class="clothes-view">
-      <div @click="displayTest(coats)" class="category coat">
+      <div @click="displayTest(dTest.coatDisplay)" class="category coat">
         <p >Coat</p>
         <ul >
-          <li v-show="show" @click="display(coat.coatImage)" v-for="coat in coats" :key="coat.coatName" >
-           
+          <li v-show="dTest.coatsDisplay" @click="display(coat.coatImage)" v-for="coat in coats" :key="coat.coatName" >
+           <p>{{coat.coatName}}</p>
             <img :src="coat.coatImage" alt=""></li>
         </ul>
       </div>
@@ -23,6 +23,7 @@
         <p>Tops</p>
         <ul>
           <li v-show="show" @click="display(coat.coatImage)"  v-for="coat in coats" :key="coat.coatName" >
+            <p>{{coat.coatName}}</p>
             <img :src="coat.coatImage" alt="">
           </li>
         </ul>
@@ -42,14 +43,15 @@ export default {
   name: 'App',
   data () {
     return {
-      show: true, 
+      show: false, 
       dTest: {
         coatsDisplay: null,
         topsDisplay: null,
       } ,
       image: ``,
       coats:
-       [{display:false},
+       [
+         //{display:false},
        {
         coatName: 'coat1',
         coatImage:'https://www.vuemastery.com/images/challenges/vmSocks-green-onWhite.jpg'
@@ -70,11 +72,14 @@ export default {
     showClothes: function () {
       this.show = true
     },
-    displayTest(clothes) {
-      this.show = clothes.display
+    displayTest(el) {
+      console.log(el)
+      if(el!==true ) {
+        this.dTest.coatsDisplay = true
+      } 
+      // this works rn
     },
-    // this doesnt work lmao
-    // it does the opposite
+   
     display(coatImage) {
       this.image= coatImage
     }
