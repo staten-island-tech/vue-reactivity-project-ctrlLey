@@ -3,26 +3,30 @@
     <div class="outfit-view">
       <div class="view coat-view">
         coats
-        <img :src="image" :alt="coatName">
+        <img :src="coatView" :alt="coats.coatName">
       </div>
-      <div class="view tops-view">tops</div>
+      <div class="view tops-view">
+        tops
+        <img :src="image" :alt="coats.coatName">
+        </div>
       <div class="view bottoms-view">bottoms</div>
       <div class="view shoes-view">shoes</div>
       <div class="view accessories-view">accessories</div>
     </div>
     <div class="clothes-view">
-      <div @click="displayTest(dTest.coatDisplay)" class="category coat">
-        <p >Coat</p>
-        <ul >
-          <li v-show="dTest.coatsDisplay" @click="display(coat.coatImage)" v-for="coat in coats" :key="coat.coatName" >
+      <div class="category coat">
+        <p @click="showCoats(display.coatsDisplay)" class="category-title">Coat</p>
+        <ul>
+          <li class="items" v-show="display.coatsDisplay" @click="displayCoatView(coat.coatImage)" v-for="coat in coats" :key="coat.coatName" >
            <p>{{coat.coatName}}</p>
-            <img :src="coat.coatImage" alt=""></li>
+            <img :src="coat.coatImage" :alt="coat.coatName"></li>
         </ul>
       </div>
-      <div @click="showClothes" class="category tops">
-        <p>Tops</p>
+      <div  class="category tops">
+        <p @click="showTops(display.topsDisplay)"
+        class="category-title">Tops</p>
         <ul>
-          <li v-show="show" @click="display(coat.coatImage)"  v-for="coat in coats" :key="coat.coatName" >
+          <li class="items" v-show="display.topsDisplay" @click="displayImg(coat.coatImage)"  v-for="coat in coats" :key="coat.coatName" >
             <p>{{coat.coatName}}</p>
             <img :src="coat.coatImage" alt="">
           </li>
@@ -44,11 +48,14 @@ export default {
   data () {
     return {
       show: false, 
-      dTest: {
+      display: {
         coatsDisplay: null,
         topsDisplay: null,
+        bottomsDisplay: null, 
+        shoesDisplay: null, 
+        accessoriesDisplay: null, 
       } ,
-      image: ``,
+      coatView: ``,
       coats:
        [
          //{display:false},
@@ -72,17 +79,37 @@ export default {
     showClothes: function () {
       this.show = true
     },
-    displayTest(el) {
+    showCoats(el) {
       console.log(el)
       if(el!==true ) {
-        this.dTest.coatsDisplay = true
-      } 
-      // this works rn
+        this.display.coatsDisplay = true
+        this.display.topsDisplay = false
+        this.display.bottomsDisplay = false
+        this.display.shoesDisplay = false
+        this.display.accessoriesDisplay = false
+
+      } else if (el===true) {
+        this.display.coatsDisplay = false
+      }
     },
-   
-    display(coatImage) {
-      this.image= coatImage
-    }
+    showTops(el) {
+      console.log(el)
+      if(el!==true ) {
+        this.display.coatsDisplay = false
+        this.display.topsDisplay = true
+        this.display.bottomsDisplay = false
+        this.display.shoesDisplay = false
+        this.display.accessoriesDisplay = false
+
+      } else if (el===true) {
+        this.display.topsDisplay = false
+      }
+    },
+
+    displayCoatView(coatImage) {
+      this.coatView= coatImage
+    },
+    
 
   }
   /* components: {
@@ -143,6 +170,12 @@ img {
   align-items: center;
   margin: .5rem auto;
   text-align: center;
+}
+.category-title {
+  border-bottom: .25rem solid black;
+  width: 40%;
+  text-align: center;
+  margin: 1rem auto;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
